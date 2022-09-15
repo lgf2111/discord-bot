@@ -1,6 +1,6 @@
 # from discord import app_commands, Interaction
 from discord.ext import commands
-from bot import session  # , tree
+from main import session  # , tree
 from models import Guild
 
 
