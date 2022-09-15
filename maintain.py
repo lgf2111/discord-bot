@@ -2,12 +2,12 @@ from flask import Flask
 from waitress import serve
 from threading import Thread
 
-app = Flask("")
+app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    return ""
+    return
 
 
 def run():
