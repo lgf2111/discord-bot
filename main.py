@@ -1,10 +1,8 @@
-# External Imports
 import os
 import asyncio
 import discord
 from discord.ext import commands
 
-# Local Imports
 from models import init_db
 from maintain import maintain
 from replit import db
