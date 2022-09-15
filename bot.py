@@ -1,7 +1,8 @@
 import discord
-import json
 import os
 import asyncio
+
+# from discord import app_commands
 from discord.ext import commands
 
 from models import Session, Guild
@@ -23,30 +24,44 @@ bot = commands.Bot(
     intents=discord.Intents.all(), command_prefix=get_prefix, help_command=help_command
 )
 
+# intents = discord.Intents.default()
+# intents.message_content = True
+
+# client = discord.Client(intents=intents)
+# tree = app_commands.CommandTree(client)
+
 
 @bot.command()
 async def load(ctx, extension):
     """Load cog"""
-    await bot.load_extension(f"cogs.{extension}")
+    cog = f"cogs.{extension}"
+    await bot.load_extension(cog)
+    print(f"{cog} loaded")
 
 
 @bot.command()
 async def unload(ctx, extension):
     """Unload cog"""
+    cog = f"cogs.{extension}"
     await bot.unload_extension(f"cogs.{extension}")
+    print(f"{cog} unloaded")
 
 
 @bot.command()
 async def reload(ctx, extension):
     """Reload cog"""
+    cog = f"cogs.{extension}"
     await bot.load_extension(f"cogs.{extension}")
     await bot.unload_extension(f"cogs.{extension}")
+    print(f"{cog} reloaded")
 
 
 async def load_extensions():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-3]}")
+            cog = f"cogs.{filename[:-3]}"
+            await bot.load_extension(cog)
+            print(f"{cog} loaded")
 
 
 async def main():

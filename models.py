@@ -14,3 +14,7 @@ class Guild(Base):
 
     def __repr__(self) -> str:
         return f"<Guild(id={self.id}, prefix={self.prefix}"
+
+
+if __name__ == "__main__":
+    Base.metadata.create_all(engine)

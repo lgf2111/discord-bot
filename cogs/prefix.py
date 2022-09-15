@@ -1,5 +1,6 @@
+# from discord import app_commands, Interaction
 from discord.ext import commands
-from bot import session
+from bot import session  # , tree
 from models import Guild
 
 
@@ -22,11 +23,22 @@ class Prefix(commands.Cog):
 
     # Commands
     @commands.command()
-    async def change_prefix(self, ctx, prefix):
+    async def chpf(self, ctx, prefix):
         """Change prefix"""
         guild = session.query(Guild).filter_by(id=ctx.guild.id).first()
+        temp = guild.prefix
         guild.prefix = prefix
         session.commit()
+        await ctx.send(f"Prefix changed from {temp} to {prefix}")
+
+    # @tree.command()
+    # async def slash_change_prefix(self, ctx: Interaction, prefix: str):
+    #     """Change prefix"""
+    #     guild = session.query(Guild).filter_by(id=ctx.guild.id).first()
+    #     temp = guild.prefix
+    #     guild.prefix = prefix
+    #     session.commit()
+    #     print(f"Prefix changed from {temp} to {prefix}!")
 
 
 async def setup(bot):
