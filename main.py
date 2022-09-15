@@ -6,6 +6,7 @@ import asyncio
 from discord.ext import commands
 
 from models import Session, Guild
+from maintain import maintain
 
 session = Session()
 
@@ -67,4 +68,5 @@ async def main():
 
 
 if __name__ == "__main__":
+    maintain()
     asyncio.run(main())
