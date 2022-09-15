@@ -1,28 +1,31 @@
-is_replit = True
-try:
-    from replit import db
-except ImportError:
-    is_replit = False
-
-import discord
 import os
 import asyncio
-
-# from discord import app_commands
+import discord
 from discord.ext import commands
 
-from models import Session, Guild
+from replit import db
+
+# from models import Session, Guild
+from models import init_db
 from maintain import maintain
 
-session = Session()
+# session = Session()
 
 
 def get_prefix(bot, message):
-    guild = session.query(Guild).filter_by(id=message.guild.id).first()
-    if guild == None:
-        guild_ = Guild(id=message.guild.id)
-        session.add(guild_)
-    return guild.prefix
+    id = str(message.guild.id)
+    guilds = db['guilds']
+    guild = guilds.get(id)
+    if not guild:
+        guilds[id] = {'prefix': '.'}
+        db['guilds'] = guilds
+        guild = guilds[id]
+    return guild['prefix']
+    # guild = session.query(Guild).filter_by(id=message.guild.id).first()
+    # if guild == None:
+    #     guild_ = Guild(id=message.guild.id)
+    #     session.add(guild_)
+    # return guild.prefix
 
 
 help_command = commands.DefaultHelpCommand(no_category="Commands")
@@ -30,12 +33,6 @@ discord.utils.setup_logging()
 bot = commands.Bot(
     intents=discord.Intents.all(), command_prefix=get_prefix, help_command=help_command
 )
-
-# intents = discord.Intents.default()
-# intents.message_content = True
-
-# client = discord.Client(intents=intents)
-# tree = app_commands.CommandTree(client)
 
 
 @bot.command()
@@ -49,15 +46,15 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     """Unload cog"""
     cog = f"cogs.{extension}"
-    await bot.unload_extension(f"cogs.{extension}")
+    await bot.unload_extension(cog)
 
 
 @bot.command()
 async def reload(ctx, extension):
     """Reload cog"""
     cog = f"cogs.{extension}"
-    await bot.load_extension(f"cogs.{extension}")
-    await bot.unload_extension(f"cogs.{extension}")
+    await bot.load_extension(cog)
+    await bot.unload_extension(cog)
 
 
 async def load_extensions():
@@ -74,5 +71,6 @@ async def main():
 
 
 if __name__ == "__main__":
+    init_db()
     maintain()
     asyncio.run(main())
