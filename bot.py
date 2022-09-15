@@ -36,7 +36,6 @@ async def load(ctx, extension):
     """Load cog"""
     cog = f"cogs.{extension}"
     await bot.load_extension(cog)
-    print(f"{cog} loaded")
 
 
 @bot.command()
@@ -44,7 +43,6 @@ async def unload(ctx, extension):
     """Unload cog"""
     cog = f"cogs.{extension}"
     await bot.unload_extension(f"cogs.{extension}")
-    print(f"{cog} unloaded")
 
 
 @bot.command()
@@ -53,7 +51,6 @@ async def reload(ctx, extension):
     cog = f"cogs.{extension}"
     await bot.load_extension(f"cogs.{extension}")
     await bot.unload_extension(f"cogs.{extension}")
-    print(f"{cog} reloaded")
 
 
 async def load_extensions():
@@ -61,7 +58,6 @@ async def load_extensions():
         if filename.endswith(".py"):
             cog = f"cogs.{filename[:-3]}"
             await bot.load_extension(cog)
-            print(f"{cog} loaded")
 
 
 async def main():

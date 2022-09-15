@@ -16,8 +16,6 @@ class Setup(commands.Cog):
             ),
         )
 
-        print("lgf2111's Bot is online")
-
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
