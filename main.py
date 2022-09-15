@@ -3,9 +3,9 @@ import asyncio
 import discord
 from discord.ext import commands
 
+from replit import db
 from models import init_db
 from maintain import maintain
-from replit import db
 
 
 def get_prefix(bot, message):
