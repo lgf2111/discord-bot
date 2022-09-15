@@ -155,3 +155,7 @@ cython_debug/
 # Others
 .vscode
 .envrc
+.replit
+poetry.lock
+pyproject.toml
+replit.nix
