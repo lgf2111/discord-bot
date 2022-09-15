@@ -1,31 +1,24 @@
+# External Imports
 import os
 import asyncio
 import discord
 from discord.ext import commands
 
-from replit import db
-
-# from models import Session, Guild
+# Local Imports
 from models import init_db
 from maintain import maintain
-
-# session = Session()
+from replit import db
 
 
 def get_prefix(bot, message):
     id = str(message.guild.id)
-    guilds = db['guilds']
+    guilds = db["guilds"]
     guild = guilds.get(id)
     if not guild:
-        guilds[id] = {'prefix': '.'}
-        db['guilds'] = guilds
+        guilds[id] = {"prefix": "."}
+        db["guilds"] = guilds
         guild = guilds[id]
-    return guild['prefix']
-    # guild = session.query(Guild).filter_by(id=message.guild.id).first()
-    # if guild == None:
-    #     guild_ = Guild(id=message.guild.id)
-    #     session.add(guild_)
-    # return guild.prefix
+    return guild["prefix"]
 
 
 help_command = commands.DefaultHelpCommand(no_category="Commands")
@@ -40,6 +33,7 @@ async def load(ctx, extension):
     """Load cog"""
     cog = f"cogs.{extension}"
     await bot.load_extension(cog)
+    await ctx.send(f"{cog} loaded")
 
 
 @bot.command()
@@ -47,14 +41,14 @@ async def unload(ctx, extension):
     """Unload cog"""
     cog = f"cogs.{extension}"
     await bot.unload_extension(cog)
+    await ctx.send(f"{cog} unloaded")
 
 
 @bot.command()
 async def reload(ctx, extension):
     """Reload cog"""
-    cog = f"cogs.{extension}"
-    await bot.load_extension(cog)
-    await bot.unload_extension(cog)
+    await unload(ctx, extension)
+    await load(ctx, extension)
 
 
 async def load_extensions():
@@ -71,6 +65,9 @@ async def main():
 
 
 if __name__ == "__main__":
-    init_db()
-    maintain()
-    asyncio.run(main())
+    try:
+        init_db()
+        maintain()
+        asyncio.run(main())
+    finally:
+        db.close()

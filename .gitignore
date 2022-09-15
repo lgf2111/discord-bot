@@ -159,3 +159,5 @@ cython_debug/
 poetry.lock
 pyproject.toml
 replit.nix
+replit.py
+db.pickle
