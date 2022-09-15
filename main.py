@@ -1,3 +1,9 @@
+is_replit = True
+try:
+    from replit import db
+except ImportError:
+    is_replit = False
+
 import discord
 import os
 import asyncio
