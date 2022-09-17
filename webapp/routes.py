@@ -1,6 +1,6 @@
 from flask import jsonify
-from app import app
-from app.utils import validate_token
+from webapp import app
+from webapp.utils import validate_token
 
 
 @app.route("/")

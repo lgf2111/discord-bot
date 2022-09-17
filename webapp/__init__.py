@@ -2,7 +2,11 @@ from flask import Flask
 from waitress import serve
 from threading import Thread
 
+
 app = Flask(__name__)
+
+
+from webapp import routes
 
 
 def run():

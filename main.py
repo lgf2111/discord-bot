@@ -5,7 +5,7 @@ from discord.ext import commands
 
 from replit import db
 from init_db import init_db
-from app import thread_run
+from webapp import thread_run
 
 
 def get_prefix(bot, message):
