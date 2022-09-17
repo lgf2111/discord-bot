@@ -6,19 +6,6 @@ class Prefix(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # Events
-    @commands.Cog.listener()
-    async def on_guild_join(self, guild):
-        guilds, id = db["guilds"], str(guild.id)
-        guilds[id] = {"prefix": "."}
-        db["guilds"] = guilds
-
-    @commands.Cog.listener()
-    async def on_guild_remove(self, guild):
-        guilds, id = db["guilds"], str(guild.id)
-        del guilds[id]
-        db["guilds"] = guilds
-
     # Commands
     @commands.command()
     async def chpf(self, ctx, new_pfx):

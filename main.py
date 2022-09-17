@@ -4,8 +4,8 @@ import discord
 from discord.ext import commands
 
 from replit import db
-from models import init_db
-from maintain import maintain
+from init_db import init_db
+from app import thread_run
 
 
 def get_prefix(bot, message):
@@ -59,13 +59,13 @@ async def load_extensions():
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(os.environ.get("SECERET_KEY"))
+        await bot.start(os.getenv("TOKEN"))
 
 
 if __name__ == "__main__":
     try:
         init_db()
-        maintain()
+        thread_run()
         asyncio.run(main())
     finally:
         db.close()
