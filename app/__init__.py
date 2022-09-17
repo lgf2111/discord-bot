@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 def run():
-    serve(app, host="0.0.0.0", port=8000)
+    serve(app, host="0.0.0.0", port=8080)
 
 
 def thread_run():
