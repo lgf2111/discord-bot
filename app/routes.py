@@ -14,5 +14,5 @@ def config():
 
 
 @app.route("/config/<token>", methods=["GET", "POST"])
-def config(token):
+def config_token(token):
     return jsonify(validate_token(token, "CONFIG"))
