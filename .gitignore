@@ -161,3 +161,4 @@ pyproject.toml
 replit.nix
 replit.py
 db.pickle
+automation/__init__.py
