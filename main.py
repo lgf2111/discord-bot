@@ -5,7 +5,10 @@ from discord.ext import commands
 
 from replit import db
 from init_db import init_db
-from webapp import thread_run
+from webapp import thread_run as webapp_run
+
+# from automation import thread_run as automation_run
+from automation import driver
 
 
 def get_prefix(bot, message):
@@ -65,7 +68,8 @@ async def main():
 if __name__ == "__main__":
     try:
         init_db()
-        thread_run()
+        webapp_run()
+        # automation_run()
         asyncio.run(main())
     finally:
         db.close()

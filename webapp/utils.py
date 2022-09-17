@@ -1,11 +1,15 @@
-from os import getenv
+from webapp import app
 from authlib.jose import jwt, JoseError
 
 
-def validate_token(token, operation):
-    key = getenv("TOKEN")
+def validate_token(token):
+    key = app.secret_key
     try:
         payload = jwt.decode(token, key)
         return payload
     except JoseError:
-        pass
+        return None
+
+
+def validate_credentials(email, password):
+    pass

@@ -1,10 +1,12 @@
 from flask import Flask
 from waitress import serve
 from threading import Thread
+from os import getenv
 
 
 app = Flask(__name__)
 
+app.config["SECRET_KEY"] = getenv("TOKEN")
 
 from webapp import routes
 

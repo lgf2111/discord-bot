@@ -24,7 +24,8 @@ class Config(commands.Cog):
         await ctx.send(f"Please check your DM 📬.")
         user = ctx.message.author
         token = self.generate_token(user, "CONFIG")
-        link = "https://Discord-Bot.lgf2111.repl.co/config/" + token
+        # link = "https://Discord-Bot.lgf2111.repl.co/config/" + token
+        link = "http://0.0.0.0:8080/config/" + token
         embed = Embed(description=f"Fill in your login credentials [here]({link})")
         await user.send(embed=embed)
 
